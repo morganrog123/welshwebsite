@@ -1,0 +1,41 @@
+body {
+  color: #212121;
+  background-color: #f5f5f5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #303030;
+}
+
+ul {
+  margin: 0;
+}
+
+
+.bg-red {
+  background-color: #f22929;
+}
+
+.navbar-brand {
+  padding-bottom: 10px;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #1f1f1f;
+}
+
+.row {
+  margin-top: 30px;
+}
+
+.signin-up {
+  background: #ededed;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}

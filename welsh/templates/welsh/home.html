@@ -1,0 +1,29 @@
+{% extends "welsh/base.html" %}
+
+{% block tr_header %}
+	<div class="navbar-nav">
+    <a class="nav-item nav-link" href="signup">Register an account</a>
+  </div>
+{% endblock tr_header %}
+
+{% block content %}
+	<!-- Insert body code here-->
+
+	<div class="col-md-7">
+		<h1>Homepage</h1>
+	</div>
+
+  {% if user.is_authenticated == False %}
+  	<div class="col-md-5">
+        <div class="signin-up">
+          <h3>Login</h3>
+          <p class='text-muted'>This is where the user will login.
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light">Username Example</li>
+              <li class="list-group-item list-group-item-light">Password Example</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+  {% endif %}
+{% endblock content %}
