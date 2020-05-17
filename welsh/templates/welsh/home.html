@@ -8,14 +8,13 @@
 
 {% block content %}
 	<!-- Insert body code here-->
-
-	<div class="col-md-7">
+	<div class="col-md-8">
 		<h1>Homepage</h1>
 	</div>
 
   {% if user.is_authenticated == False %}
-  	<div class="col-md-5">
-        <div class="signin-up">
+  	<div class="col-md-4">
+        <div class="signin">
           <h3>Login</h3>
           <p class='text-muted'>This is where the user will login.
             <ul class="list-group">

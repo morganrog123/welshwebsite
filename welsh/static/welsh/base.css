@@ -45,7 +45,7 @@ th,td {
   margin-top: 30px;
 }
 
-.signin-up {
+.signup {
   background: #ededed;
   padding: 10px 20px;
   border: 1px solid #dddddd;
@@ -53,4 +53,19 @@ th,td {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 500px;
+}
+
+.signin {
+  background: #ededed;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.border-top {
+  border-width: 0px;
+  margin-top: 20px;
 }
