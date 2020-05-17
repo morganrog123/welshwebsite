@@ -1,5 +1,23 @@
 {% extends "welsh/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-	<h1>{{ user.username }}</h1>
+	<div class="col-md-1"></div>
+	<div class="col-md-11">
+		<h2>My Info</h2>
+		<table>
+			<tr>
+				<th>Username:</th> 
+				<td>{{ user }}</td>
+			</tr>
+			<tr>
+				<th>Email:</th> 
+				<td>{{ user.email }}</td>
+			</tr>
+		</table>
+
+		<br><br>
+
+		<a href="{% url 'editinfo' %}">Change my info</a><br>
+		<a href="#">Change password</a><br>
+	</div>
 {% endblock content %}

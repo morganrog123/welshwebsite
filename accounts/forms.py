@@ -8,3 +8,11 @@ class Signup_Form(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password1', 'password2')
+
+
+class Edit_Info_Form(forms.ModelForm):
+	email = forms.EmailField()
+	
+	class Meta:
+		model = User
+		fields = ('username', 'email')
