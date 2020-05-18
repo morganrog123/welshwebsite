@@ -1,38 +1,21 @@
 {% extends "welsh/base.html" %}
-{% load crispy_forms_tags %}
-
-{% block tr_header %}
-	<div class="navbar-nav">
-    <a class="nav-item nav-link" href="signup">Register an account</a>
-  </div>
-{% endblock tr_header %}
 
 {% block content %}
 	<!-- Insert body code here-->
-	<div class="col-md-8">
-		<h1>Homepage</h1>
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<h2>Croeso {{request.user}}!</h2><br>
+		<h5>Please select a year</h5><br>
+		<a class="menu-btn" href="{% url 'year_7' %}">
+		<button type="button" class="btn btn-lg btn-block">Blwyddyn Saith / Year Seven</button></a>
+		<a class="menu-btn" href="{% url 'year_8' %}">
+		<button type="button" class="btn btn-lg btn-block">Blwyddyn Wyth / Year Eight</button></a>
+		<a class="menu-btn" href="{% url 'year_9' %}">
+		<button type="button" class="btn btn-lg btn-block">Blwyddyn Naw / Year Nine</button></a>
+		<a class="menu-btn" href="{% url 'year_10' %}">
+		<button type="button" class="btn btn-lg btn-block">Blwyddyn Deg / Year Ten</button></a>
+		<a class="menu-btn" href="{% url 'year_11' %}">
+		<button type="button" class="btn btn-lg btn-block">Blwyddyn Unarddeg / Year Eleven</button></a>
 	</div>
 
-  {% if user.is_authenticated == False %}
-  	<div class="col-md-4">
-        <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Login</legend>
-          {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-          <button class="btn btn-outline-primary" type="submit">Login</button>
-        </form>
-      <div class="border-top">
-        <small class="text-muted">
-          Need An Account? <a class="ml-2" href="{% url 'signup' %}">Sign Up</a>
-        </small>
-        <br>
-        <small class="text-muted">
-          Forgotten your password? <a class="ml-2" href="{% url 'passwordreset' %}">Reset password</a>
-        </small>
-      </div>    
-    </div>
-  {% endif %}
 {% endblock content %}

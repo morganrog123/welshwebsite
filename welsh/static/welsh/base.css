@@ -69,3 +69,14 @@ th,td {
   border-width: 0px;
   margin-top: 20px;
 }
+
+.btn-lg {
+  background-color: #f22929;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.menu-btn:hover {
+  color: #1f1f1f;
+  text-decoration: none;
+}
