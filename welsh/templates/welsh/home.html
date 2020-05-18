@@ -1,4 +1,5 @@
 {% extends "welsh/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block tr_header %}
 	<div class="navbar-nav">
@@ -14,15 +15,24 @@
 
   {% if user.is_authenticated == False %}
   	<div class="col-md-4">
-        <div class="signin">
-          <h3>Login</h3>
-          <p class='text-muted'>This is where the user will login.
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-light">Username Example</li>
-              <li class="list-group-item list-group-item-light">Password Example</li>
-            </ul>
-          </p>
-        </div>
-      </div>
+        <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Login</legend>
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-primary" type="submit">Login</button>
+        </form>
+      <div class="border-top">
+        <small class="text-muted">
+          Need An Account? <a class="ml-2" href="{% url 'signup' %}">Sign Up</a>
+        </small>
+        <br>
+        <small class="text-muted">
+          Forgotten your password? <a class="ml-2" href="{% url 'passwordreset' %}">Reset password</a>
+        </small>
+      </div>    
+    </div>
   {% endif %}
 {% endblock content %}

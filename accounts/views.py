@@ -7,6 +7,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 def signup(request):
+	if request.user.is_authenticated == True:
+		return redirect('welcome')
 	if request.method == "POST":
 		form = Signup_Form(request.POST)
 		if form.is_valid():
