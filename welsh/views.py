@@ -32,3 +32,7 @@ def year10(request):
 @login_required
 def year11(request):
 	return render(request, 'welsh/year11.html')
+
+@login_required
+def selectview(request):
+	return render(request, 'welsh/select.html')

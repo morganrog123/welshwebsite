@@ -127,8 +127,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'index'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -136,3 +139,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Iaith <morganrog123@gmail.com>"
 EMAIL_HOST_USER = 'morganrog123@gmail.com'      
 EMAIL_HOST_PASSWORD = os.environ.get('WelshEmail_Pass')     # Environment variable to hide password
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 15*60
+SESSION_SAVE_EVERY_REQUEST = True
