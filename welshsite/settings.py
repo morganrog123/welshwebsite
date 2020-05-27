@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'welsh.apps.WelshConfig',
     'accounts.apps.AccountsConfig',
+    'games.apps.GamesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

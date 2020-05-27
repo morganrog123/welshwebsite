@@ -23,6 +23,20 @@ th,td {
   padding-bottom: 10px;
 }
 
+.test_table th,td {
+  width: 500px;
+  padding: 8px;
+}
+
+.answer.table tr {
+  width: 400px;
+  margin-right: 100px;
+}
+
+.test_answer {
+  width: 400px;
+}
+
 .bg-red {
   background-color: #f22929;
 }

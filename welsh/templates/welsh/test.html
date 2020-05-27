@@ -1,0 +1,61 @@
+{% extends "welsh/base.html" %}
+
+{% block content %}
+	<!-- Insert body code here-->
+	<div class="col-md-1"></div>
+	<div class="col-md-11">
+		<h5 style= "margin-top: 10px">Complete as many questions as you can:</h5>
+		{% for test in tests %}
+		<form action= 'result/' method= "POST">
+			{% csrf_token %}
+			<table class= "test_table">
+				<tr>
+					<th>{{test.question_1}}</th> 
+					<td><input class= "test_answer" type="text" name="answer_1" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_2}}</th> 
+					<td><input class= "test_answer" type="text" name="answer_2" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_3}}</th>
+					<td><input class= "test_answer" type="text" name="answer_3" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_4}}</th>
+					<td><input class= "test_answer" type="text" name="answer_4" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_5}}</th>
+					<td><input class= "test_answer" type="text" name="answer_5" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_6}}</th>
+					<td><input class= "test_answer" type="text" name="answer_6" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_7}}</th>
+					<td><input class= "test_answer" type="text" name="answer_7" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_8}}</th>
+					<td><input class= "test_answer" type="text" name="answer_8" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_9}}</th>
+					<td><input class= "test_answer" type="text" name="answer_9" maxlength="100"></td>
+				</tr>
+				<tr>
+					<th>{{test.question_10}}</th>
+					<td><input class= "test_answer" type="text" name="answer_10" maxlength="100"></td>
+				</tr>
+			</table>
+			<div style="margin-top: 20px; padding-bottom: 20px" class="form-group">
+				<button style= "margin-left: 750px; margin-right: 10px" class="btn btn-outline-primary" type="submit">Submit</button>
+		</form>
+				<a href= "/{{ urlpath }}/">
+				<button class="btn btn-outline-primary" type="button">Cancel</button></a>
+			</div>
+    {% endfor %}
+
+{% endblock content %}
