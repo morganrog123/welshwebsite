@@ -1,0 +1,20 @@
+{% extends "welsh/base.html" %}
+
+{% block content %}
+	<div style= "margin-left: auto; margin-right: auto; text-align: center">
+		<h5 style= "margin-top: 10px">Unscramble the letters to get the phrase</h5>
+		<h1 style= "margin-top: 80px; font-size: 60px">{{ result }}</h1>
+
+		<form action= '/{{ urlpath }}/game/anagram_result/' method= "POST">
+			{% csrf_token %}
+		<input style= "margin-top: 60px" type="text" name="guess" size="30">
+		<div style="margin-top: 40px;" class="form-group">
+			<button class="btn btn-outline-primary" type="submit">Submit</button>
+		</form>
+
+			<a href= "/{{ urlpath }}/">
+			<button style="margin-left: 20px" class="btn btn-outline-primary" type="button">Back</button></a>
+		</div>
+	</div>
+		{% csrf_token %}
+{% endblock content %}

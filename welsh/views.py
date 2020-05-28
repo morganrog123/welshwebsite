@@ -231,9 +231,7 @@ def checkresults(request):
 			answer_values.append(answer['answer_9'])
 			answer_values.append(answer['answer_10'])
 
-		if form.is_valid() == False:
-			return render(request, 'welsh/test.html')
-		else:
+		if form.is_valid():
 			if form.cleaned_data['answer_1'] == answer_values[0]:
 				score += 1
 			if form.cleaned_data['answer_2'] == answer_values[1]:
@@ -255,6 +253,8 @@ def checkresults(request):
 			if form.cleaned_data['answer_10'] == answer_values[9]:
 				score += 1
 			
+			return score
+			
 			context = {
 					'score': score,
 					'form': form,
@@ -262,7 +262,7 @@ def checkresults(request):
 					'urlpath': urlpath
 					}
 		
-		return render(request, 'welsh/result.html', context)
+			return render(request, 'welsh/result.html', context)
 
 	else:
-		return render(request, 'welsh/test.html', form(request))
+		return render(request, 'welsh/test.html', {'form': form})
