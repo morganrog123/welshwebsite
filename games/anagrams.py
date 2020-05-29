@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import GamePhrase, Topic
 import random
-from .forms import AnagramForm, QuickfireForm
-from datetime import datetime
+from .forms import AnagramForm
 
 # Create your views here.
 def getPhrases(request):
@@ -94,14 +93,10 @@ def getPhrases(request):
 def load_list(request):
     phrases = getPhrases(request)
     phrase_list = []
-    translate_list = []
-
     for phrase in phrases:
         phrase_list.append(phrase['phrase'].strip().lower())
-        translate_list.append(phrase['translated_phrase'].strip().lower())
 
     return phrase_list
-    return translate_list
 
 def get_word(request):
     phrase_list = load_list(request)
@@ -109,7 +104,7 @@ def get_word(request):
         return get_word(request)
     else:
         word = random.choice(phrase_list)
-    
+        
     return word
 
 @login_required
@@ -126,7 +121,7 @@ def start_anagram(request):
         'result': result,
         'urlpath': urlpath
     }
-
+    
     return render(request, 'games/anagram.html', context)
 
 @login_required
@@ -147,119 +142,3 @@ def anagram_finish(request):
             return render(request, 'games/anagram_result.html', context)
     else:
         return render(request, 'games/anagram.html', {'form': form})
-
-
-@login_required
-def start_quickfire(request):
-    request.session['start_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    phrases = getPhrases(request)
-    urlpath = request.session['urlpath']
-    word = get_word(request)
-    request.session['word'] = word
-    translated_word = ""
-    request.session['translated_phrase'] = translated_word
-
-    for phrase in phrases:
-        if phrase['phrase'].strip().lower() == word:
-            translated_phrase = phrase['translated_phrase'].strip().lower()
-            request.session['translated_phrase'] = translated_phrase
-
-    context = {
-        'word': word,
-        'urlpath': urlpath
-    }
-
-    return render(request, 'games/quickfire.html', context)
-
-@login_required
-def quickfire_finish(request):
-    urlpath = request.session['urlpath']
-    translated_word = request.session['translated_phrase']
-
-    if request.method == "POST":
-        form = QuickfireForm(request.POST)
-        if form.is_valid():
-            start_time = request.session['start_time']
-            end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            tdelta = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S') - datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-            time_delta = int(tdelta.total_seconds())
-            score = (50 - time_delta) * 20
-            if time_delta > 49: score = 0
-        context = {
-                'form': form,
-                'translated_word': translated_word,
-                'urlpath': urlpath,
-                'score': score
-                }
-
-        return render(request, 'games/quickfire_result.html', context)
-    else:
-        return render(request, 'games/quickfire.html', {'form': form})
-
-
-'''@login_required
-def start_hangman(request):
-    if request.method == 'GET':
-        word = get_word(request)
-        
-
-
-@login_required
-def button(request):
-    game_id = int(request.POST['game_id'])
-
-    game = Game.objects.get(game_id=game_id)
-
-    if game.user != request.user:
-        return render(request, "hangman.html")
-    answer = game.answer
-
-    cur_guess = request.POST['letter']
-    guessed = list(game.guessed)
-
-    if game.status == "win" or game.status == "lose":
-        generate_finished_game(game)
-        return render(request, "hangman.html", {'guessed': guessed, 'game': game})
-    if cur_guess not in guessed:
-        guessed.append(cur_guess)
-        game.guessed = "".join(guessed)
-        game.save()
-    word_to_display = ""
-
-    match_num = 0
-    for char in answer:
-        if char in guessed:
-            match_num += 1
-            word_to_display += char + ' '
-        else:
-            word_to_display += '_ '
-
-    if match_num == len(answer):
-        game.status = "win"
-        game.save()
-    game.display = word_to_display
-
-    num_wrong_guess = 0
-    for char in guessed:
-        if char not in answer:
-            num_wrong_guess += 1
-    if num_wrong_guess >= 10:
-        game.status = 'lose'
-        game.save()
-        num_wrong_guess = 10
-    game.image = "/static/images/hang" + str(num_wrong_guess) + ".gif"
-
-    return render(request, "hangman.html", {'guessed': guessed, 'game': game})
-
-
-def generate_finished_game(game):
-    answer = game.answer
-    guessed = list(game.guessed)
-    if game.status == "win":
-        game.display = " ".join(list(answer))
-        game.image = "/static/images/hang" + str(wrong_num(guessed, answer)) + ".gif"
-        return
-    else:
-        game.display = word_to_display(guessed, answer)
-        game.image = "/static/images/hang10.gif"
-        return'''

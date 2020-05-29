@@ -1,0 +1,26 @@
+{% extends "welsh/base.html" %}
+ 
+{% block content %}
+	<div style= "margin-left: auto; margin-right: auto; text-align: center">
+		<h3 style= "margin-top: 20px">You guessed: </h3><h2>"{{ form.guess.value }}"</h2><br>
+		<h3>The correct answer is: </h3><h2>"{{ translated_word }}"</h2><br>
+		{% if form.guess.value == translated_word and score > 0 %}
+		<h2>Well done! You got it right!</h2><br>
+		<h2>You scored {{ score }} points!</h2>
+		{% elif form.guess.value == translated_word and score <= 0 %}
+		<h2>Well done! You got it right!</h2><br>
+		<h2>But you took too long and scored 0 points</h2><br>
+		<h2>Try to guess quicker next time!</h2>
+		{% else %}
+		<h2>You didn't quite get it right! Unlucky!</h2><br>
+		<h2>You scored 0 points</h2>
+		{% endif %}
+
+		<div style="margin-top: 40px;" class="form-group">
+			<a href= "/{{ urlpath }}/game/anagram/">
+			<button class="btn btn-outline-primary" type="submit">Try Another</button></a>
+			<a href= "/{{ urlpath }}/">
+			<button style="margin-left: 20px" class="btn btn-outline-primary" type="button">Return to Menu</button></a>
+		</div>
+	</div>
+{% endblock content %}
