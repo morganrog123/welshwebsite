@@ -123,7 +123,7 @@ def testview(request):
 		tests = Test.objects.filter(test_name= "Technoleg")
 	else:
 		raise Http404()
-	# function needed later to get tests
+
 	context = {
 		"tests": tests,
 		"urlpath": urlpath
@@ -213,7 +213,6 @@ def checkresults(request):
 		answers = Test.objects.filter(test_name= "Technoleg").values()
 	else:
 		raise Http404()
-	# function needed later to get tests
 
 	if request.method == "POST":
 		form = TestForm(request.POST)
@@ -252,8 +251,6 @@ def checkresults(request):
 				score += 1
 			if form.cleaned_data['answer_10'] == answer_values[9]:
 				score += 1
-			
-			return score
 			
 			context = {
 					'score': score,

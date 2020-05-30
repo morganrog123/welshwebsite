@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import GamePhrase, Topic
+from .models import GamePhrase, Topic, Hangman
 import random
 from .forms import AnagramForm, QuickfireForm
 from datetime import datetime
 
 # Create your views here.
+@login_required
+def gameselect(request):
+    return render(request, 'games/game_select.html')
+
 def getPhrases(request):
     urlpath = ''
     if 'year7/topic1' in request.path:
@@ -197,69 +201,90 @@ def quickfire_finish(request):
         return render(request, 'games/quickfire.html', {'form': form})
 
 
-'''@login_required
+def get_lives():
+    num_lives = 6
+    return num_lives
+
+@login_required
 def start_hangman(request):
     if request.method == 'GET':
+        getPhrases(request)
+        urlpath = request.session['urlpath']
         word = get_word(request)
-        
+        game = Hangman(user=request.user, answer=word)
+        game.save()
+        game.display = "_ " * len(word)
+        word
+        num_lives = get_lives()
+
+        context = {'num_lives': num_lives, 
+                    'guessed': [], 
+                    "game": game,
+                    "urlpath": urlpath
+                }
+
+        return render(request, "games/hangman.html", context)
+    else:
+        return button(request)
 
 
 @login_required
 def button(request):
+    getPhrases(request)
+    urlpath = request.session['urlpath']
     game_id = int(request.POST['game_id'])
-
-    game = Game.objects.get(game_id=game_id)
-
-    if game.user != request.user:
-        return render(request, "hangman.html")
+    game = Hangman.objects.get(game_id=game_id)
     answer = game.answer
-
-    cur_guess = request.POST['letter']
-    guessed = list(game.guessed)
+    guess = request.POST['letter']
+    guessed_list = list(game.guessed)
+    num_lives = get_lives()
 
     if game.status == "win" or game.status == "lose":
-        generate_finished_game(game)
-        return render(request, "hangman.html", {'guessed': guessed, 'game': game})
-    if cur_guess not in guessed:
-        guessed.append(cur_guess)
-        game.guessed = "".join(guessed)
+        hangman_finish(game)
+        return render(request, "games/hangman.html", {'urlpath': urlpath, 'guessed': guessed_list, 'game': game})
+    if guess not in guessed_list:
+        guessed_list.append(guess)
+        game.guessed = "".join(guessed_list)
         game.save()
+
     word_to_display = ""
 
-    match_num = 0
+    matched_num = 0
     for char in answer:
-        if char in guessed:
-            match_num += 1
+        if char in guessed_list:
+            matched_num += 1
             word_to_display += char + ' '
         else:
             word_to_display += '_ '
 
-    if match_num == len(answer):
+    if matched_num == len(answer):
         game.status = "win"
         game.save()
     game.display = word_to_display
 
-    num_wrong_guess = 0
-    for char in guessed:
+    for char in guessed_list:
         if char not in answer:
-            num_wrong_guess += 1
-    if num_wrong_guess >= 10:
+            num_lives -= 1
+    if num_lives <= 0:
         game.status = 'lose'
         game.save()
-        num_wrong_guess = 10
-    game.image = "/static/images/hang" + str(num_wrong_guess) + ".gif"
 
-    return render(request, "hangman.html", {'guessed': guessed, 'game': game})
+    context = {
+        'num_lives': num_lives,
+        'guessed': guessed_list,
+        'game': game,
+        'urlpath': urlpath
+    }
 
+    return render(request, "games/hangman.html", context)
 
-def generate_finished_game(game):
+@login_required
+def hangman_finish(game):
     answer = game.answer
-    guessed = list(game.guessed)
+    guessed_list = list(game.guessed)
     if game.status == "win":
         game.display = " ".join(list(answer))
-        game.image = "/static/images/hang" + str(wrong_num(guessed, answer)) + ".gif"
         return
     else:
-        game.display = word_to_display(guessed, answer)
-        game.image = "/static/images/hang10.gif"
-        return'''
+        game.display = word_to_display(guessed_list, answer)
+        return

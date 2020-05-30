@@ -25,3 +25,10 @@ class GamePhrase(models.Model):
 
 	def __str__(self):
 		return self.phrase
+
+class Hangman(models.Model):
+    user = models.ForeignKey(User, default=None, on_delete= models.CASCADE)
+    game_id = models.AutoField(primary_key=True)
+    answer = models.CharField(max_length=20)
+    guessed = models.CharField(max_length=10, default="")
+    status = models.CharField(max_length=10, default="ongoing")

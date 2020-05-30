@@ -5,7 +5,7 @@
 		<h5 style= "margin-top: 10px">Unscramble the letters to get the phrase</h5>
 		<h1 style= "margin-top: 80px; font-size: 60px">{{ result }}</h1>
 
-		<form action= '/{{ urlpath }}/game/anagram_result/' method= "POST">
+		<form action= '/{{ urlpath }}/games/anagrams/result/' method= "POST">
 			{% csrf_token %}
 		<input style= "margin-top: 60px" type="text" name="guess" size="30">
 		<div style="margin-top: 40px;" class="form-group">
