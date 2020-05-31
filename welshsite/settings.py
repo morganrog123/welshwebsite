@@ -140,7 +140,3 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Iaith <morganrog123@gmail.com>"
 EMAIL_HOST_USER = 'morganrog123@gmail.com'      
 EMAIL_HOST_PASSWORD = os.environ.get('WelshEmail_Pass')     # Environment variable to hide password
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 15*60
-SESSION_SAVE_EVERY_REQUEST = True

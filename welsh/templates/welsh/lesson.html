@@ -1,0 +1,61 @@
+{% extends "welsh/base.html" %}
+
+{% block content %}
+	<!-- Insert body code here-->
+	<div class="col-md-1"></div>
+	<div class="col-md-7">
+		{% if lesson.status == 'learning' %}
+			<form method="POST">
+			<input type="hidden" name="lesson_id" value="{{ lesson.lesson_id }}"/>
+			{% csrf_token %}
+			<h3>{{ lesson.current_phrase }}</h3><br>
+			<h3>{{ lesson.current_translated_phrase }}</h3>
+			<button type="submit" name="nextbtn" value="nextbtn">Next</button>
+			</form>
+
+		{% elif lesson.status == 'input' %}
+			<h3 id="commit">Commit the phrase to memory and press button when ready</h3><br>
+			<button onclick="PhraseAppear()" id="button">Try it</button>
+			<h3 id="help" style="display: none">Translate the sentence into Welsh</h3><br>
+			<h3 id="translation" style="display: none">{{ lesson.current_translated_phrase }}</h3><br>
+			<form method= "POST">
+			<input type="hidden" name="lesson_id" value="{{ lesson.lesson_id }}"/>
+			{% csrf_token %}
+				<input id="guess" style="display: none" type="text" name="guess" size="30"><br>
+				<button id="submit" class="btn btn-outline-primary" type="submit" style="display: none" value="True">Submit</button>
+			</form>
+
+			<script>
+				function PhraseAppear() {
+					document.getElementById("help").style.display = "inline";
+					document.getElementById("translation").style.display = "inline";
+					document.getElementById("commit").style.display = "none";
+					document.getElementById('button').style.display = 'none';
+					document.getElementById('submit').style.display = 'inline';
+					document.getElementById('guess').style.display = 'inline';
+				}
+			</script>
+
+		{% elif lesson.status == 'check' %}
+			{% if form.guess.value == lesson.current_phrase %}
+				<h2>Well done! That was correct!</h2>
+			{% else %}
+				<h2>You didn't quite get it right! Unlucky!</h2><br>
+				<h2>The correct answer was: {{ lesson.current_phrase }}</h2>
+			{% endif %}
+			<form method= "POST">
+			<input type="hidden" name="lesson_id" value="{{ lesson.lesson_id }}"/>
+			<input type="hidden" name="next_phrase" value="True"/>
+			{% csrf_token %}
+			<button class="btn btn-outline-primary" type="submit" value="next_phrase">Next Phrase</button>
+			</form>
+		{% elif lesson.status == 'finished' %}
+			<h3>Test</h3>
+		{% endif %}
+	</div>
+
+	<div class="col-md-4">
+		<!--Mutations help-->
+	</div>
+
+{% endblock content %}

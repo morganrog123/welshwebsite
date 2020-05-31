@@ -48,7 +48,7 @@ def getPhrases(request):
         phrases = GamePhrase.objects.filter(phrase_topic__topic__exact= "Cartref").values()
     elif 'year9/topic1' in request.path:
         urlpath = 'year9/topic1'
-        phrases = GamePhrase.objects.filter(phrase_topic__topic__exact= "Cysyllteiriau ac Idiomau").values()
+        phrases = GamePhrase.objects.filter(phrase_topic__topic__exact= "Ardal").values()
     elif 'year9/topic2' in request.path:
         urlpath = 'year9/topic2'
         phrases = GamePhrase.objects.filter(phrase_topic__topic__exact= "Hamdden a Hobiau").values()
@@ -98,14 +98,11 @@ def getPhrases(request):
 def load_list(request):
     phrases = getPhrases(request)
     phrase_list = []
-    translate_list = []
 
     for phrase in phrases:
         phrase_list.append(phrase['phrase'].strip().lower())
-        translate_list.append(phrase['translated_phrase'].strip().lower())
 
     return phrase_list
-    return translate_list
 
 def get_word(request):
     phrase_list = load_list(request)
@@ -213,8 +210,8 @@ def start_hangman(request):
         word = get_word(request)
         game = Hangman(user=request.user, answer=word)
         game.save()
+
         game.display = "_ " * len(word)
-        word
         num_lives = get_lives()
 
         context = {'num_lives': num_lives, 

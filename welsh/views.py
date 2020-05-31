@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Test
-from .forms import TestForm
+from .models import Test, LessonPhrase, LessonStart
+from .forms import TestForm, LessonForm
 from django.urls import path
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
@@ -78,7 +78,7 @@ def testview(request):
 		tests = Test.objects.filter(test_name= "Cartref")
 	elif 'year9/topic1' in request.path:
 		urlpath = 'year9/topic1'
-		tests = Test.objects.filter(test_name= "Cysyllteiriau ac Idiomau")
+		tests = Test.objects.filter(test_name= "Ardal")
 	elif 'year9/topic2' in request.path:
 		urlpath = 'year9/topic2'
 		tests = Test.objects.filter(test_name= "Hamdden a Hobiau")
@@ -168,7 +168,7 @@ def checkresults(request):
 		answers = Test.objects.filter(test_name= "Cartref").values()
 	elif 'year9/topic1' in request.path:
 		urlpath = 'year9/topic1'
-		answers = Test.objects.filter(test_name= "Cysyllteiriau ac Idiomau").values()
+		answers = Test.objects.filter(test_name= "Ardal").values()
 	elif 'year9/topic2' in request.path:
 		urlpath = 'year9/topic2'
 		answers = Test.objects.filter(test_name= "Hamdden a Hobiau").values()
@@ -263,3 +263,231 @@ def checkresults(request):
 
 	else:
 		return render(request, 'welsh/test.html', {'form': form})
+
+@login_required
+def getlessonphrases(request):
+	urlpath = ''
+	if 'year7/topic1/lesson/1' in request.path:
+		urlpath = 'year7/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Fi fy Hunan", lesson_no= 1).values()
+	elif 'year7/topic1/lesson/2' in request.path:
+		urlpath = 'year7/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Fi fy Hunan", lesson_no= 2).values()
+	elif 'year7/topic2/lesson/1' in request.path:
+		urlpath = 'year7/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Gwyliau", lesson_no= 1).values()
+	elif 'year7/topic2/lesson/2' in request.path:
+		urlpath = 'year7/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Gwyliau", lesson_no= 2).values()
+	elif 'year7/topic2/lesson/3' in request.path:
+		urlpath = 'year7/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Gwyliau", lesson_no= 3).values()
+	elif 'year7/topic3/lesson/1' in request.path:
+		urlpath = 'year7/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Ysgol", lesson_no= 1).values()
+	elif 'year7/topic3/lesson/2' in request.path:
+		urlpath = 'year7/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Ysgol", lesson_no= 2).values()
+	elif 'year7/topic4/lesson/1' in request.path:
+		urlpath = 'year7/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Tywydd", lesson_no= 1).values()
+	elif 'year7/topic5/lesson/1' in request.path:
+		urlpath = 'year7/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Amser", lesson_no= 1).values()
+	elif 'year7/topic5/lesson/2' in request.path:
+		urlpath = 'year7/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Amser", lesson_no= 2).values()
+	elif 'year7/topic6/lesson/1' in request.path:
+		urlpath = 'year7/topic6'
+		phrases = LessonPhrase.objects.filter(topic= "Bwyd", lesson_no= 1).values()
+	elif 'year7/topic6/lesson/2' in request.path:
+		urlpath = 'year7/topic6'
+		phrases = LessonPhrase.objects.filter(topic= "Bwyd", lesson_no= 2).values()
+	elif 'year8/topic1/lesson/1' in request.path:
+		urlpath = 'year8/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Ffasiwn", lesson_no= 1).values()
+	elif 'year8/topic1/lesson/2' in request.path:
+		urlpath = 'year8/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Ffasiwn", lesson_no= 2).values()
+	elif 'year8/topic1/lesson/3' in request.path:
+		urlpath = 'year8/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Ffasiwn", lesson_no= 3).values()
+	elif 'year8/topic2/lesson/1' in request.path:
+		urlpath = 'year8/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Teulu a Ffrindiau", lesson_no= 1).values()
+	elif 'year8/topic2/lesson/2' in request.path:
+		urlpath = 'year8/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Teulu a Ffrindiau", lesson_no= 2).values()
+	elif 'year8/topic3/lesson/1' in request.path:
+		urlpath = 'year8/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Trefn Ddyddiol", lesson_no= 1).values()
+	elif 'year8/topic4/lesson/1' in request.path:
+		urlpath = 'year8/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Anifeiliad Anwes", lesson_no= 1).values()
+	elif 'year8/topic5/lesson/1' in request.path:
+		urlpath = 'year8/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Cartref", lesson_no= 1).values()
+	elif 'year9/topic1/lesson/1' in request.path:
+		urlpath = 'year9/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Ardal", lesson_no = 1).values()
+	elif 'year9/topic2/lesson/1' in request.path:
+		urlpath = 'year9/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Hamdden a Hobiau", lesson_no= 1).values()
+	elif 'year9/topic3/lesson/1' in request.path:
+		urlpath = 'year9/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Chwaraeon", lesson_no= 1).values()
+	elif 'year9/topic4/lesson/1' in request.path:
+		urlpath = 'year9/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Digwyddiadau Arbennig", lesson_no= 1).values()
+	elif 'year9/topic5/lesson/1' in request.path:
+		urlpath = 'year9/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Amser Gorffenol", lesson_no= 1).values()
+	elif 'year9/topic5/lesson/2' in request.path:
+		urlpath = 'year9/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Amser Gorffenol", lesson_no= 2).values()
+	elif 'year10/topic1/lesson/1' in request.path:
+		urlpath = 'year10/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Cerddoriaeth", lesson_no= 1).values()
+	elif 'year10/topic2/lesson/1' in request.path:
+		urlpath = 'year10/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Cymru, Digwylliant ac Enwogion", lesson_no= 1).values()
+	elif 'year10/topic2/lesson/2' in request.path:
+		urlpath = 'year10/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Cymru, Digwylliant ac Enwogion", lesson_no= 2).values()
+	elif 'year10/topic2/lesson/3' in request.path:
+		urlpath = 'year10/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Cymru, Digwylliant ac Enwogion", lesson_no= 3).values()
+	elif 'year10/topic3/lesson/1' in request.path:
+		urlpath = 'year10/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Cadw'n Iach", lesson_no= 1).values()
+	elif 'year10/topic3/lesson/2' in request.path:
+		urlpath = 'year10/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Cadw'n Iach", lesson_no= 2).values()
+	elif 'year10/topic4/lesson/1' in request.path:
+		urlpath = 'year10/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Y Penwythnos", lesson_no= 1).values()
+	elif 'year10/topic4/lesson/2' in request.path:
+		urlpath = 'year10/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Y Penwythnos", lesson_no= 2).values()
+	elif 'year10/topic5/lesson/1' in request.path:
+		urlpath = 'year10/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Amser Dyfodol", lesson_no= 1).values()
+	elif 'year11/topic1/lesson/1' in request.path:
+		urlpath = 'year11/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Gwaith", lesson_no= 1).values()
+	elif 'year11/topic1/lesson/2' in request.path:
+		urlpath = 'year11/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Gwaith", lesson_no= 2).values()
+	elif 'year11/topic2/lesson/1' in request.path:
+		urlpath = 'year11/topic2'
+		phrases = LessonPhrase.objects.filter(topic= "Problemau Pobl Ifanc", lesson_no= 1).values()
+	elif 'year11/topic3/lesson/1' in request.path:
+		urlpath = 'year11/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Y Amgylchedd", lesson_no= 1).values()
+	elif 'year11/topic3/lesson/2' in request.path:
+		urlpath = 'year11/topic3'
+		phrases = LessonPhrase.objects.filter(topic= "Y Amgylchedd", lesson_no= 2).values()
+	elif 'year11/topic4/lesson/1' in request.path:
+		urlpath = 'year11/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Cyfryngau", lesson_no= 1).values()
+	elif 'year11/topic4/lesson/2' in request.path:
+		urlpath = 'year11/topic4'
+		phrases = LessonPhrase.objects.filter(topic= "Cyfryngau", lesson_no= 2).values()
+	elif 'year11/topic5/lesson/1' in request.path:
+		urlpath = 'year11/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Technoleg", lesson_no= 1).values()
+	elif 'year11/topic5/lesson/2' in request.path:
+		urlpath = 'year11/topic5'
+		phrases = LessonPhrase.objects.filter(topic= "Technoleg", lesson_no= 2).values()
+
+	request.session['urlpath'] = urlpath
+	return phrases
+
+@login_required
+def lessonview(request):
+	if request.method == "GET":
+		phrases = getlessonphrases(request)
+		urlpath = request.session['urlpath']
+		phrase_list = []
+		status = "learning"
+
+		for phrase in phrases:
+			phrase_list.append(phrase)
+
+		lesson = LessonStart(user=request.user, current_phrase=phrase_list[0].get('phrase'), current_translated_phrase=phrase_list[0].get('translated_phrase'), count = 0)
+		lesson.save()
+
+		context = {
+			'urlpath': urlpath,
+			'lesson': lesson,
+			'phrase_list': phrase_list,
+			'status': status
+		}
+
+		return render(request, 'welsh/lesson.html', context)
+	else:
+		return button(request)
+
+@login_required
+def button(request):
+	phrases = getlessonphrases(request)
+	urlpath = request.session['urlpath']
+	lesson_id = int(request.POST['lesson_id'])
+	lesson = LessonStart.objects.get(lesson_id= lesson_id)
+	phrase_list = []
+	current_phrase = lesson.current_phrase
+	current_translated_phrase = lesson.current_translated_phrase
+	count = lesson.count
+	context = {'urlpath': urlpath,'lesson': lesson}
+
+
+	for phrase in phrases:
+		phrase_list.append(phrase)
+
+	if "nextbtn" in request.POST:
+		lesson.status = "input"
+		lesson.save()
+		context = {
+			'urlpath': urlpath,
+			'lesson': lesson,
+		}
+		return render(request, 'welsh/lesson.html', context)
+
+	form = LessonForm(request.POST)
+	if "guess" in request.POST:
+		lesson.status = "check"
+		lesson.save()
+		context = {
+			'urlpath': urlpath,
+			'lesson': lesson,
+			'form': form
+		}
+		return render(request, 'welsh/lesson.html', context)
+
+	if "next_phrase" in request.POST:
+		lesson.count += 1
+		lesson.status = "learning"
+		lesson.save()
+
+	if lesson.count >= len(phrase_list):
+		lesson.status = "finished"
+		lessonfinish(request)
+		lesson.save()
+	else:
+		lesson.current_phrase = phrase_list[lesson.count].get('phrase')
+		lesson.current_translated_phrase = phrase_list[lesson.count].get('translated_phrase')
+		lesson.save()
+
+	if lesson.status == "learning":
+		context = {
+			'urlpath': urlpath,
+			'lesson': lesson,
+		}
+
+	return render(request, 'welsh/lesson.html', context)
+
+def lessonfinish(request):
+	urlpath = request.session['urlpath']
+	lesson_id = int(request.POST['lesson_id'])
+	lesson = LessonStart.objects.get(lesson_id= lesson_id)
+	return render(request, 'welsh/lesson.html', {'urlpath': urlpath, 'lesson': lesson})

@@ -85,5 +85,6 @@ urlpatterns = [
     path('year11/', include(topicpatterns)),
     path('year7/topic6/', views.selectview, name='y7_topic_6'),
     path('', include(testpatterns)),
-    path('', include(testresultpatterns))
+    path('', include(testresultpatterns)),
+    path('year7/topic1/lesson/1/', views.lessonview, name='lesson')
 ]
