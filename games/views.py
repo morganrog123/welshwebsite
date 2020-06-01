@@ -7,10 +7,6 @@ from .forms import AnagramForm, QuickfireForm
 from datetime import datetime
 
 # Create your views here.
-@login_required
-def gameselect(request):
-    return render(request, 'games/game_select.html')
-
 def getPhrases(request):
     urlpath = ''
     if 'year7/topic1' in request.path:
@@ -94,6 +90,18 @@ def getPhrases(request):
 
     request.session['urlpath'] = urlpath
     return phrases
+
+@login_required
+def gameselect(request):
+    getPhrases(request)
+    urlpath = request.session['urlpath']
+    return render(request, 'games/game_select.html', {'urlpath': urlpath})
+
+@login_required
+def nogamesview(request):
+    getPhrases(request)
+    urlpath = request.session['urlpath']
+    return render(request, 'games/nogames.html', {'urlpath': urlpath})
 
 def load_list(request):
     phrases = getPhrases(request)
@@ -179,13 +187,12 @@ def quickfire_finish(request):
 
     if request.method == "POST":
         form = QuickfireForm(request.POST)
-        if form.is_valid():
-            start_time = request.session['start_time']
-            end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            tdelta = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S') - datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
-            time_delta = int(tdelta.total_seconds())
-            score = (50 - time_delta) * 20
-            if time_delta > 49: score = 0
+        start_time = request.session['start_time']
+        end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        tdelta = datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S') - datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S')
+        time_delta = int(tdelta.total_seconds())
+        score = (50 - time_delta) * 20
+        if time_delta > 49: score = 0
         context = {
                 'form': form,
                 'translated_word': translated_word,

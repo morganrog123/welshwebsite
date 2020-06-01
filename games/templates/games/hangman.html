@@ -11,7 +11,7 @@
     <div>
         <form action="#" id="letters" method="POST">
             {% csrf_token %}
-            <div style="margin-top: 40px">
+            <div style="margin-top: 30px">
                 <input type="hidden" name="game_id" value="{{ game.game_id }}"/>
                 <button class="btn btn-default" type="submit" name="letter" value="a">a</button>
                 <button class="btn btn-default" type="submit" name="letter" value="b">b</button>
@@ -43,13 +43,17 @@
                 <button class="btn btn-default" type="submit" name="letter" value="y">y</button>
                 <button class="btn btn-default" type="submit" name="letter" value="z">z</button>
             </div>
+            <br>
+            <div>
+                <button class="btn btn-default" type="submit" name="letter" value=" ">space</button>
+            </div>
         </form>
     </div>
 <br>
-<div style= "margin-top: 20px">
+<div style= "margin-top: 10px">
     <h3> Guessed letters: {{ guessed }} </h3>
 </div>
-<div style="margin-top: 40px;" class="form-group">
+<div style="margin-top: 30px;" class="form-group">
     <a href= "/{{ urlpath }}/">
     <button style="margin-left: 20px" class="btn btn-outline-primary" type="button">Return to Menu</button></a>
 </div>
@@ -60,7 +64,7 @@
     <h3>Swydd dda! Well done!</h3>
 </div>
 <div style="margin-top: 40px;" class="form-group">
-    <a href= "/{{ urlpath }}/game/anagram/">
+    <a href= "/{{ urlpath }}/games/hangman/">
     <button class="btn btn-outline-primary" type="submit">Try Another</button></a>
     <a href= "/{{ urlpath }}/">
     <button style="margin-left: 20px" class="btn btn-outline-primary" type="button">Return to Menu</button></a>
@@ -71,7 +75,7 @@
     <h3>Unlucky! Better luck next time!</h3>
 </div>
 <div style="margin-top: 40px;" class="form-group">
-    <a href= "/{{ urlpath }}/game/anagram/">
+    <a href= "/{{ urlpath }}/games/hangman/">
     <button class="btn btn-outline-primary" type="submit">Try Another</button></a>
     <a href= "/{{ urlpath }}/">
     <button style="margin-left: 20px" class="btn btn-outline-primary" type="button">Return to Menu</button></a>

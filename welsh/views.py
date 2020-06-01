@@ -7,39 +7,6 @@ from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 # Create your views here.
 
-
-def index(request):
-    return render(request, 'welsh/index.html')
-
-@login_required
-def home(request):
-	return render(request, 'welsh/home.html')
-
-# View for each year the user selects
-@login_required
-def year7(request):
-	return render(request, 'welsh/year7.html')
-
-@login_required
-def year8(request):
-	return render(request, 'welsh/year8.html')
-
-@login_required
-def year9(request):
-	return render(request, 'welsh/year9.html')
-
-@login_required
-def year10(request):
-	return render(request, 'welsh/year10.html')
-
-@login_required
-def year11(request):
-	return render(request, 'welsh/year11.html')
-
-@login_required
-def selectview(request):
-	return render(request, 'welsh/select.html')
-
 @login_required
 def testview(request):
 	urlpath = ''
@@ -124,11 +91,74 @@ def testview(request):
 	else:
 		raise Http404()
 
+	request.session['urlpath'] = urlpath
 	context = {
 		"tests": tests,
 		"urlpath": urlpath
 	}
 	return render(request, 'welsh/test.html', context)
+
+def index(request):
+    return render(request, 'welsh/index.html')
+
+@login_required
+def home(request):
+	return render(request, 'welsh/home.html')
+
+# View for each year the user selects
+@login_required
+def year7(request):
+	return render(request, 'welsh/year7.html')
+
+@login_required
+def year8(request):
+	return render(request, 'welsh/year8.html')
+
+@login_required
+def year9(request):
+	return render(request, 'welsh/year9.html')
+
+@login_required
+def year10(request):
+	return render(request, 'welsh/year10.html')
+
+@login_required
+def year11(request):
+	return render(request, 'welsh/year11.html')
+
+@login_required
+def selectview(request):
+	urlpath = ''
+	if 'year7' in request.path:
+		urlpath = 'year7'
+	elif 'year8' in request.path:
+		urlpath = 'year8'
+	elif 'year9' in request.path:
+		urlpath = 'year9'
+	elif 'year10' in request.path:
+		urlpath = 'year10'
+	elif 'year11' in request.path:
+		urlpath = 'year11'
+
+	return render(request, 'welsh/select.html', {'urlpath': urlpath})
+
+@login_required
+def threelessonview(request):
+	testview(request)
+	urlpath = request.session['urlpath']
+	return render(request, 'welsh/3_lesson_menu.html', {'urlpath': urlpath})
+
+@login_required
+def twolessonview(request):
+	testview(request)
+	urlpath = request.session['urlpath'] = urlpath
+	return render(request, 'welsh/2_lesson_menu.html', {'urlpath': urlpath})
+
+@login_required
+def onelessonview(request):
+	testview(request)
+	urlpath = request.session['urlpath'] = urlpath
+	return render(request, 'welsh/1_lesson_menu.html', {'urlpath': urlpath})
 
 @login_required
 def checkresults(request):
@@ -330,6 +360,9 @@ def getlessonphrases(request):
 	elif 'year9/topic1/lesson/1' in request.path:
 		urlpath = 'year9/topic1'
 		phrases = LessonPhrase.objects.filter(topic= "Ardal", lesson_no = 1).values()
+	elif 'year9/topic1/lesson/2' in request.path:
+		urlpath = 'year9/topic1'
+		phrases = LessonPhrase.objects.filter(topic= "Ardal", lesson_no = 2).values()
 	elif 'year9/topic2/lesson/1' in request.path:
 		urlpath = 'year9/topic2'
 		phrases = LessonPhrase.objects.filter(topic= "Hamdden a Hobiau", lesson_no= 1).values()
