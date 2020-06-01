@@ -81,10 +81,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'welshdb',
+        'NAME': 'c1725806',
         'USER': 'c1725806',
         'PASSWORD': 'keTHb8xf4XuC',
-        'HOST': '127.0.0.1',
+        'HOST': 'csmysql.cs.cf.ac.uk',
         'PORT': '3306',
     }
 }
