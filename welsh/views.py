@@ -330,9 +330,6 @@ def getlessonphrases(request):
 	elif 'year7/topic6/lesson/1' in request.path:
 		urlpath = 'year7/topic6'
 		phrases = LessonPhrase.objects.filter(topic= "Bwyd", lesson_no= 1).values()
-	elif 'year7/topic6/lesson/2' in request.path:
-		urlpath = 'year7/topic6'
-		phrases = LessonPhrase.objects.filter(topic= "Bwyd", lesson_no= 2).values()
 	elif 'year8/topic1/lesson/1' in request.path:
 		urlpath = 'year8/topic1'
 		phrases = LessonPhrase.objects.filter(topic= "Ffasiwn", lesson_no= 1).values()
@@ -417,9 +414,6 @@ def getlessonphrases(request):
 	elif 'year11/topic3/lesson/1' in request.path:
 		urlpath = 'year11/topic3'
 		phrases = LessonPhrase.objects.filter(topic= "Y Amgylchedd", lesson_no= 1).values()
-	elif 'year11/topic3/lesson/2' in request.path:
-		urlpath = 'year11/topic3'
-		phrases = LessonPhrase.objects.filter(topic= "Y Amgylchedd", lesson_no= 2).values()
 	elif 'year11/topic4/lesson/1' in request.path:
 		urlpath = 'year11/topic4'
 		phrases = LessonPhrase.objects.filter(topic= "Cyfryngau", lesson_no= 1).values()

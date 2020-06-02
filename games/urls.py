@@ -208,7 +208,7 @@ urlpatterns = [
 	path('year10/topic5/', include(nogamespattern)),
 	path('year11/topic1/', include(gameselectpattern)),
 	path('year11/topic2/', include(nogamespattern)),
-	path('year11/topic3/', include(nogamespattern)),
+	path('year11/topic3/', include(gameselectpattern)),
 	path('year11/topic4/', include(gameselectpattern)),
 	path('year11/topic5/', include(gameselectpattern)),
 	path('', include(anagrampatterns)),

@@ -137,8 +137,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "Iaith <morganrog123@gmail.com>"
-EMAIL_HOST_USER = 'morganrog123@gmail.com'      
-EMAIL_HOST_PASSWORD = os.environ.get('WelshEmail_Pass')     # Environment variable to hide password
+DEFAULT_FROM_EMAIL = "Iaith <welshwebsitecw@gmail.com>"
+EMAIL_HOST_USER = 'welshwebsitecw@gmail.com'      
+EMAIL_HOST_PASSWORD = 'sgsxotutzwmulgcv'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
