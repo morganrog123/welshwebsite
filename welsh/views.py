@@ -151,13 +151,13 @@ def threelessonview(request):
 @login_required
 def twolessonview(request):
 	testview(request)
-	urlpath = request.session['urlpath'] = urlpath
+	urlpath = request.session['urlpath']
 	return render(request, 'welsh/2_lesson_menu.html', {'urlpath': urlpath})
 
 @login_required
 def onelessonview(request):
 	testview(request)
-	urlpath = request.session['urlpath'] = urlpath
+	urlpath = request.session['urlpath']
 	return render(request, 'welsh/1_lesson_menu.html', {'urlpath': urlpath})
 
 @login_required
