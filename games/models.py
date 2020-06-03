@@ -26,7 +26,7 @@ class GamePhrase(models.Model):
 	def __str__(self):
 		return self.phrase
 
-class Hangman(models.Model):
+class HangmanGame(models.Model):
     user = models.ForeignKey(User, default=None, on_delete= models.CASCADE)
     game_id = models.AutoField(primary_key=True)
     answer = models.CharField(max_length=20)

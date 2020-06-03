@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import GamePhrase, Topic, Hangman
+from .models import GamePhrase, Topic, HangmanGame
 import random
 from .forms import AnagramForm, QuickfireForm
 from datetime import datetime
@@ -215,7 +215,7 @@ def start_hangman(request):
         getPhrases(request)
         urlpath = request.session['urlpath']
         word = get_word(request)
-        game = Hangman(user=request.user, answer=word)
+        game = HangmanGame(user=request.user, answer=word)
         game.save()
 
         game.display = "_ " * len(word)
@@ -237,7 +237,7 @@ def button(request):
     getPhrases(request)
     urlpath = request.session['urlpath']
     game_id = int(request.POST['game_id'])
-    game = Hangman.objects.get(game_id=game_id)
+    game = HangmanGame.objects.get(game_id=game_id)
     answer = game.answer
     guess = request.POST['letter']
     guessed_list = list(game.guessed)
