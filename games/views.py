@@ -146,14 +146,13 @@ def anagram_finish(request):
 
     if request.method == "POST":
         form = AnagramForm(request.POST)
-        if form.is_valid():
-            context = {
-                    'form': form,
-                    'correct_word': correct_word,
-                    'urlpath': urlpath
-                    }
+        context = {
+                'form': form,
+                'correct_word': correct_word,
+                'urlpath': urlpath
+                }
 
-            return render(request, 'games/anagram_result.html', context)
+        return render(request, 'games/anagram_result.html', context)
     else:
         return render(request, 'games/anagram.html', {'form': form})
 
